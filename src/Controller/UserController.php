@@ -219,7 +219,7 @@ public function updateFormation(Request $request, EntityManagerInterface $entity
                        ]
             );
         }
-        if (isset($data['name']) && isset($data['duration'])) {
+        elseif (isset($data['name']) && isset($data['duration'])) {
             $formation->setName($data['name']);
             $formation->setDuration($data['duration']);
             $formation->setDescription($data['description']);
@@ -245,7 +245,7 @@ public function updateFormation(Request $request, EntityManagerInterface $entity
                        ]
             );
         }
-        if(isset($data['name'])  && isset($data['description'])) {
+        elseif(isset($data['name'])  && isset($data['description'])) {
             $formation->setName($data['name']);
             $formation->setDuration($data['duration']);
             $formation->setDescription($data['description']);
@@ -258,7 +258,7 @@ public function updateFormation(Request $request, EntityManagerInterface $entity
                        ]
             );
         }
-        if(isset($data['name'])) {
+        elseif(isset($data['name'])) {
             $formation->setDuration($data['name']);
             $this->manager->persist($formation);
             $this->manager->flush();
@@ -269,7 +269,7 @@ public function updateFormation(Request $request, EntityManagerInterface $entity
                ]
             );
         }
-        if(isset($data['duration'])) {
+        elseif(isset($data['duration'])) {
             $formation->setDuration($data['duration']);
             $this->manager->persist($formation);
             $this->manager->flush();
@@ -281,7 +281,7 @@ public function updateFormation(Request $request, EntityManagerInterface $entity
             );
         }
 
-        if(isset($data['description'])) {
+        elseif(isset($data['description'])) {
             $formation->setDescription($data['description']);
             $this->manager->persist($formation);
             $this->manager->flush();
@@ -291,15 +291,17 @@ public function updateFormation(Request $request, EntityManagerInterface $entity
                     'message'=>"La description de la formation a été  modifiée avec succès"
                ]
             );
+        } else {
+            return new JsonResponse(
+                [
+                    'status'=>true,
+                    'message'=>"Aucune modification n'a été apportée"
+               ]
+            );
         }
        
        
-        return new JsonResponse(
-            [
-                'status'=>true,
-                'message'=>"Aucune modification n'a été  modifiée avec succès"
-           ]
-        );
+        
     } else {
         return new JsonResponse(
             [
